@@ -394,7 +394,12 @@
     if (!window.confirm("Restore the sample ledger? This replaces the ledger saved in this browser.")) return;
     ledger = Ledger.freshLedger();
     pendingTransaction = null;
+    showAllEntries = false;
     confirmationPanel.hidden = true;
+    $("#command-input").value = "";
+    $("#transcript-label").textContent = "WHAT I HEARD";
+    transcript.textContent = "Your words will appear here as you speak.";
+    $("#confidence-label").textContent = "";
     persist();
     announce("The sample ledger has been restored.");
   });
