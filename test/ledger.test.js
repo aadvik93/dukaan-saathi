@@ -7,6 +7,12 @@ test("parses numeric and spoken Hinglish rupee amounts", () => {
   assert.equal(Ledger.parseAmount("paanch sau rupaye"), 500);
   assert.equal(Ledger.parseAmount("do hazaar"), 2000);
   assert.equal(Ledger.parseAmount("ek lakh"), 100000);
+  assert.equal(Ledger.parseAmount("pachhattar rupaye"), 75);
+  assert.equal(Ledger.parseAmount("chaubees rupaye"), 24);
+  assert.equal(Ledger.parseAmount("सवा सौ"), 125);
+  assert.equal(Ledger.parseAmount("ढाई सौ"), 250);
+  assert.equal(Ledger.parseAmount("ek crore"), 10000000);
+  assert.equal(Ledger.parseAmount("500 nahi 450"), null);
   assert.equal(Ledger.parseAmount("पाँच सौ रुपये"), 500);
   assert.equal(Ledger.parseAmount("राजू को ५०० रुपये"), 500);
   assert.equal(Ledger.parseAmount("amount missing"), null);
@@ -28,6 +34,55 @@ test("parses unambiguous udhaar and repayment commands against known names", () 
   });
   assert.equal(Ledger.parseCommand("सीमा का कितना बाकी है", customers).intent, "balance");
   assert.equal(Ledger.parseCommand("आज का हिसाब बताओ", customers).intent, "daily_summary");
+});
+
+test("understands common shop-floor sentence variations without confusing queries for entries", () => {
+  const customers = Ledger.freshLedger().customers;
+  const phrases = [
+    ["आज Raju के खाते में 250 रुपये लिख दो", "Raju", 250, "credit"],
+    ["राजू को दो सौ पचहत्तर का उधार चढ़ा दो", "Raju", 275, "credit"],
+    ["सीमा ने दो सौ रुपये जमा किए", "Seema", 200, "repayment"],
+    ["Seema se 150 rupaye wapas mile", "Seema", 150, "repayment"],
+    ["Seema ne 200 rupaye bheje", "Seema", 200, "repayment"],
+  ];
+  for (const [phrase, name, amount, type] of phrases) {
+    const parsed = Ledger.parseCommand(phrase, customers);
+    assert.deepEqual(
+      { intent: parsed.intent, name: parsed.customer?.name, amount: parsed.amount, type: parsed.type },
+      { intent: "transaction", name, amount, type },
+      phrase,
+    );
+  }
+  assert.equal(Ledger.parseCommand("आज जमा कितना हुआ", customers).intent, "daily_summary");
+  assert.equal(Ledger.parseCommand("Raju ka hisaab batao", customers).intent, "balance");
+  assert.equal(Ledger.parseCommand("Seema ka khata batao", customers).intent, "balance");
+  assert.equal(Ledger.parseCommand("Aaj 500 udhaar", customers).reason, "customer");
+});
+
+test("adds customers through a spoken Hindi or Hinglish phrase", () => {
+  const customers = Ledger.freshLedger().customers;
+  assert.deepEqual(Ledger.parseCommand("Naya grahak Meena jodo", customers), {
+    intent: "add_customer",
+    name: "Meena",
+  });
+  assert.deepEqual(Ledger.parseCommand("नया ग्राहक मीना जोड़ो", customers), {
+    intent: "add_customer",
+    name: "मीना",
+  });
+  assert.equal(Ledger.parseCommand("naya grahak jodo", customers).reason, "customer_name");
+});
+
+test("supports a new spoken customer through to a saved credit and balance", () => {
+  const ledger = Ledger.freshLedger();
+  const addCommand = Ledger.parseCommand("Naya grahak Meena jodo", ledger.customers);
+  const customer = Ledger.addCustomer(ledger, addCommand.name);
+  const entryCommand = Ledger.parseCommand("Meena ko paanch sau ka udhaar likh do", ledger.customers);
+  Ledger.addTransaction(ledger, {
+    customerId: entryCommand.customer.id,
+    amount: entryCommand.amount,
+    type: entryCommand.type,
+  });
+  assert.equal(Ledger.customerBalances(ledger).find((item) => item.id === customer.id).balance, 500);
 });
 
 test("asks for clarification instead of guessing missing customer, amount, or transaction type", () => {
@@ -59,6 +114,7 @@ test("saves only valid entries and blocks repayments above the recorded balance"
 test("validates duplicate and malformed customer names", () => {
   const ledger = Ledger.freshLedger();
   assert.throws(() => Ledger.addCustomer(ledger, "raju"), /already/);
+  assert.throws(() => Ledger.addCustomer(ledger, "राजू"), /already/);
   assert.throws(() => Ledger.addCustomer(ledger, "<script>"), /valid name/);
   assert.equal(Ledger.addCustomer(ledger, "Meena").name, "Meena");
 });

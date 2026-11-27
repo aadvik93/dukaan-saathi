@@ -34,20 +34,20 @@ The focused tests cover Hindi/Hinglish amount and intent parsing, clarification 
 
 ## Try the flow
 
-1. Select **हिंदी** or **Hinglish**, then tap the microphone and allow microphone access. If browser speech recognition is unavailable or blocked, the microphone control is removed and the command box remains usable; you can type or use your device's keyboard dictation.
-2. Say a customer name, amount, and transaction type, for example: “Raju ko 500 udhaar likho” or “राजू को पाँच सौ उधार लिखो”.
-3. Check the visible transcript and read-back. Say “haan” / “हाँ” or tap **Save entry** to save. Say “nahi” / “नहीं” or tap **Cancel** to discard. While confirmation is open, say the corrected full entry or “actually 450” to revise it.
-4. Ask “Raju ka balance kitna hai?” or “Aaj ka hisaab batao”.
+1. Select **हिंदी** or **Hinglish**, tap the microphone, and allow microphone access. On first use, repeat the sentence shown on screen; this is a recognition check, not voice enrollment.
+2. Speak a customer name, amount, and action. For example: “Raju ko paanch sau ka udhaar likho”, “राजू को पाँच सौ उधार लिखो”, or “Seema ne do sau rupaye diye”.
+3. Check the transcript and read-back. Say “haan” / “हाँ” or tap **Save** to confirm. Say “nahi” / “नहीं” or tap **Cancel** to discard. While confirmation is open, speak the corrected full entry.
+4. Ask “Raju ka kitna baaki hai?” or “Aaj ka hisaab batao”. Add someone by saying “Naya grahak Meena jodo” or “नया ग्राहक मीना जोड़ो”, then confirm by voice.
 5. **Reset demo** restores the illustrative starting ledger in the current browser.
-
-New customers can be added from **Customer book**. Speak the exact name shown there. The **SAMPLE COMMANDS** chips fill the command box so you can test the complete ledger flow without pretending speech recognition worked.
 
 ## Speech, storage, and limits
 
 - The ledger is stored in this browser's `localStorage`; there is no app account, app backend database, cloud sync, or payment processing. Clearing browser site data removes it. Do not treat this demo as the only copy of a real shop ledger.
-- Speech uses the browser's Web Speech APIs. Recognition support varies by browser, language, and device; some browsers use a remote recognition service and require internet. Audio handling is therefore subject to the selected browser/provider's behavior and privacy terms. This app does not upload or persist microphone audio itself.
-- Speech synthesis is also browser-provided and voice availability varies. A browser without `SpeechRecognition` shows a clear limitation instead of pretending voice input worked.
-- Customer and amount parsing is intentionally conservative and limited to the supported names and Hindi/Hinglish terms. It asks for missing or mixed details and blocks repayments above the recorded balance. Always verify the read-back before confirming; a demo parser is not an accounting system.
+- Speech uses the browser's Web Speech APIs. Recognition support varies by browser, language, and device; some browsers use a remote recognition service and require internet. The app does not upload or retain microphone recordings itself. Its first-use voice check stores only a completion flag in local storage; it does not create or save a voiceprint.
+- Where implemented by the browser, contextual phrase biasing prioritizes customer names and shop vocabulary. It is not model training and is not supported by every browser. The local parser covers common Hindi/Hinglish number words, udhaar, repayments, balance questions, daily summaries, and spoken customer creation; unfamiliar or conflicting phrases should be clarified rather than guessed.
+- Speech synthesis is also browser-provided and voice availability varies. A browser without usable `SpeechRecognition` shows an explicit voice-unavailable message; there is no typed-command fallback.
+- Noise handling depends on the device and browser. This app cannot guarantee recognition in arbitrary shop noise or identify a particular speaker, and it cannot apply custom noise cancellation to the browser's recognition stream. Keep the microphone close, reduce noise where practical, and verify every transcript and read-back before confirming.
+- The prototype is not an accounting system. It blocks repayments above the recorded balance, but always verify records independently.
 - The default sample ledger exists to make the screen and queries understandable on first launch. Reset it before any genuine field test.
 
 ## Pilot and claims

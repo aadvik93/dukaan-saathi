@@ -88,35 +88,35 @@
               </div>
               <div class="transcript-wrap">
                 <div class="transcript-label"><span id="transcript-label">WHAT I HEARD</span><span id="confidence-label"></span></div>
-                <p id="transcript" class="transcript" aria-live="polite">Your speech or command will appear here.</p>
+                <p id="transcript" class="transcript" aria-live="polite">Your speech will appear here.</p>
               </div>
-              <form class="command-form" id="command-form" autocomplete="off">
-                <label for="command-input">OR ENTER A COMMAND</label>
-                <div class="command-input-row">
-                  <input id="command-input" name="command" maxlength="160" placeholder="Raju ko 500 udhaar likho" aria-describedby="command-help">
-                  <button type="submit">Send</button>
-                </div>
-                <small id="command-help">You can type, or use your device's keyboard dictation. Nothing is saved until you confirm.</small>
-              </form>
+              <div class="voice-setup" id="voice-setup" hidden>
+                <strong>FIRST-TIME VOICE CHECK</strong>
+                <p>Tap the microphone and repeat this line:</p>
+                <blockquote id="setup-prompt">मेरी दुकान का हिसाब सही लिखो</blockquote>
+                <small>This checks speech recognition only. No voice recording or voiceprint is saved.</small>
+              </div>
               <div class="voice-examples">
-                <span>SAMPLE COMMANDS</span>
-                <button type="button" class="example-chip" data-example="Raju ko 500 udhaar likho">“Raju ko 500 udhaar likho”</button>
-                <button type="button" class="example-chip" data-example="Seema ne 200 rupaye diye">“Seema ne 200 rupaye diye”</button>
-                <button type="button" class="example-chip" data-example="Aaj ka hisaab batao">“Aaj ka hisaab batao”</button>
+                <span>TRY SAYING</span>
+                <p>“Raju ko paanch sau ka udhaar likho”</p>
+                <p>“Seema ne do sau rupaye diye”</p>
+                <p>“Raju ka kitna baaki hai?”</p>
+                <p>“Aaj ka hisaab batao”</p>
+                <p>“Naya grahak Meena jodo”</p>
               </div>
               <div class="confirmation-panel" id="confirmation-panel" hidden>
                 <div class="confirmation-copy">
                   <span class="confirm-kicker">PLEASE CONFIRM</span>
                   <p id="confirmation-summary"></p>
-                  <small>Say “haan” to save, or “nahi” to cancel.</small>
+                  <small id="confirmation-help">Say “haan” to save, or “nahi” to cancel.</small>
                 </div>
                 <div class="confirmation-actions">
                   <button class="button button-quiet" id="cancel-confirmation" type="button">Cancel</button>
-                  <button class="button button-confirm" id="confirm-transaction" type="button"><span>✓</span> Save entry</button>
+                  <button class="button button-confirm" id="confirm-transaction" type="button"><span>✓</span> Save</button>
                 </div>
               </div>
               <div class="voice-notice" id="voice-notice" role="status" hidden></div>
-              <p class="voice-privacy">Your ledger stays in this browser. Speech recognition needs a supported browser and internet connection.</p>
+              <p class="voice-privacy">Voice-only input. Noise filtering depends on your device and browser; loud shop noise can still cause mistakes. Check every read-back before saving. Your voice is not used as an identity check.</p>
             </article>
 
             <section class="recent-card">
@@ -132,7 +132,6 @@
             <section class="customers-card">
               <div class="section-heading compact-heading">
                 <div><p class="eyebrow">PEOPLE YOU TRUST</p><h2>Customer book</h2></div>
-                <button class="add-customer" id="add-customer" type="button" aria-label="Add customer">+</button>
               </div>
               <div class="customer-list" id="customer-list"></div>
               <button class="all-customers" id="show-customers" type="button">See all customers <span>→</span></button>
@@ -154,16 +153,6 @@
         <footer class="footer"><span>DUKAAN SAATHI <span>•</span> MADE FOR THE EVERYDAY SHOPKEEPER</span><span>NO CLOUD. NO COMPLEXITY. JUST HISaab.</span></footer>
       </main>
     </div>
-
-    <dialog id="customer-dialog" class="dialog-card">
-      <form method="dialog" id="customer-form">
-        <div class="dialog-heading"><div><p class="eyebrow">CUSTOMER BOOK</p><h2>Add a customer</h2></div><button class="dialog-close" id="close-customer-dialog" type="button" aria-label="Close">×</button></div>
-        <label for="customer-name">Name</label>
-        <input id="customer-name" name="name" maxlength="40" autocomplete="off" placeholder="e.g. Meena" required>
-        <p class="dialog-help">Use the same name when speaking an entry.</p>
-        <div class="dialog-actions"><button class="button button-quiet" id="cancel-add-customer" type="button">Cancel</button><button class="button button-confirm" id="save-customer" value="default">Add customer</button></div>
-      </form>
-    </dialog>
 
     <dialog id="customers-dialog" class="dialog-card">
       <div class="dialog-heading"><div><p class="eyebrow">YOUR LEDGER</p><h2>All customers</h2></div><button class="dialog-close" id="close-customers" aria-label="Close">×</button></div>

@@ -10,6 +10,7 @@
   const confirmationPanel = $("#confirmation-panel");
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   const recognitionAvailable = Boolean(SpeechRecognition);
+  const VOICE_SETUP_KEY = "dukaan-saathi-voice-setup-v1";
 
   let ledger;
   let startupError = null;
@@ -21,8 +22,16 @@
   }
   let recognition = null;
   let isListening = false;
+  let isVoiceSetup = false;
   let pendingTransaction = null;
+  let pendingCustomerName = null;
   let showAllEntries = false;
+  let needsVoiceSetup = true;
+  try {
+    needsVoiceSetup = window.localStorage.getItem(VOICE_SETUP_KEY) !== "complete";
+  } catch {
+    needsVoiceSetup = true;
+  }
 
   const currency = new Intl.NumberFormat("en-IN", {
     style: "currency",
@@ -53,7 +62,7 @@
   }
 
   function announce(message, { speak = false, spokenMessage, error = false } = {}) {
-    voiceStatus.textContent = message;
+    voiceStatus.textContent = error ? "Please check the notice below." : message;
     voiceNotice.hidden = !error;
     voiceNotice.textContent = error ? message : "";
     if (speak) say(spokenMessage || message);
@@ -86,7 +95,7 @@
     const visibleTransactions = showAllEntries ? transactions : transactions.slice(0, 4);
     $("#entry-list").innerHTML = visibleTransactions.length
       ? visibleTransactions.map(renderTransaction).join("")
-      : '<p class="empty-state">No entries yet. Tap the microphone to start your first one.</p>';
+      : '<p class="empty-state">No entries yet. Tap the microphone to speak your first entry.</p>';
     $("#view-all").hidden = transactions.length <= 4;
     $("#view-all").innerHTML = showAllEntries ? 'Show less <span aria-hidden="true">↑</span>' : 'View all <span aria-hidden="true">→</span>';
 
@@ -147,7 +156,7 @@
 
   function listen() {
     if (!SpeechRecognition) {
-      showSpeechFallback("This browser can't listen. Use the command box below, or open this page in Chrome or Edge for microphone input.");
+      showSpeechFallback("This browser doesn't provide speech recognition. Open Dukaan Saathi in a supported browser with microphone access to use voice input.");
       return;
     }
     if (isListening) {
@@ -160,39 +169,96 @@
     recognition = new SpeechRecognition();
     recognition.lang = $("#voice-language").value;
     recognition.interimResults = true;
-    recognition.maxAlternatives = 1;
+    recognition.maxAlternatives = 3;
     recognition.continuous = false;
+    isVoiceSetup = needsVoiceSetup;
+    if ("phrases" in recognition && typeof window.SpeechRecognitionPhrase === "function") {
+      const vocabulary = [
+        "udhaar", "udhar", "jama", "baaki", "hisaab", "hisab", "rupaye", "rupya", "rupees",
+        "khata", "chadha do", "laga do", "likh do", "jod do", "baki kitna hai",
+        "Raju ko paanch sau ka udhaar likho", "Seema ne do sau rupaye diye",
+        "aaj ka hisaab batao", "naya grahak jodo", "add customer", "new customer",
+        "do sau", "paanch sau", "dedh sau", "sawa sau", "pachhattar rupaye",
+        "पाँच सौ रुपये", "दो सौ रुपये", "ढाई सौ रुपये", "डेढ़ सौ रुपये",
+        "लिखो", "उधार", "जमा", "बाकी", "हिसाब", "रुपये", "खाता", "चढ़ा दो",
+        "लिख दो", "ग्राहक", "जोड़ो", "आज का हिसाब बताओ", "नया ग्राहक जोड़ो",
+        "दो सौ", "पाँच सौ", "पचहत्तर रुपये",
+        "haan", "nahi", "हाँ", "नहीं",
+        ...ledger.customers.flatMap((customer) => [customer.name, ...(customer.aliases || [])]),
+      ];
+      try {
+        recognition.phrases = [...new Set(vocabulary)].map((phrase) => new window.SpeechRecognitionPhrase(phrase, 3));
+      } catch {
+        // Contextual phrase biasing is experimental and optional.
+      }
+    }
     recognition.onstart = () => {
       setListening(true);
       voiceNotice.hidden = true;
-      announce("Listening… speak naturally.");
+      if (isVoiceSetup) {
+        const prompt = $("#voice-language").value === "hi-IN"
+          ? "मेरी दुकान का हिसाब सही लिखो"
+          : "Meri dukaan ka hisaab sahi likho";
+        $("#setup-prompt").textContent = prompt;
+        $("#voice-setup").hidden = false;
+        announce("First-time voice check: repeat the sentence shown on screen. Your voice is not saved.");
+      } else {
+        announce("Listening… speak naturally.");
+      }
     };
     recognition.onresult = (event) => {
       const result = event.results[event.results.length - 1];
-      const phrase = result[0].transcript.trim();
+      const alternatives = Array.from(result)
+        .map((alternative, index) => ({
+          phrase: alternative.transcript.trim(),
+          confidence: Number.isFinite(alternative.confidence) ? alternative.confidence : 0,
+          index,
+        }))
+        .filter((alternative) => alternative.phrase)
+        .sort((a, b) => b.confidence - a.confidence || a.index - b.index);
+      const best = alternatives[0];
       $("#transcript-label").textContent = "WHAT I HEARD";
-      transcript.textContent = phrase || "Listening…";
-      if (!result.isFinal) return;
-      const confidence = result[0].confidence;
-      $("#confidence-label").textContent = Number.isFinite(confidence) && confidence > 0
-        ? `${Math.round(confidence * 100)}% heard`
+      transcript.textContent = best?.phrase || "Listening…";
+      if (!result.isFinal || !best) return;
+      $("#confidence-label").textContent = best.confidence > 0
+        ? `${Math.round(best.confidence * 100)}% heard`
         : "";
-      if (Number.isFinite(confidence) && confidence > 0 && confidence < 0.55) {
-        announce("I may have misheard that. Please try again a little slower.", { speak: true, error: true });
+      if (isVoiceSetup) {
+        finishVoiceSetup(best.phrase);
         return;
       }
-      processCommand(phrase);
+      if (best.confidence > 0 && best.confidence < 0.6) {
+        announce("I may have misheard that. Move closer to the microphone, reduce background noise if possible, and try again.", { speak: true, error: true });
+        return;
+      }
+      const parsed = alternatives.map((alternative) => ({
+        ...alternative,
+        command: Ledger.parseCommand(alternative.phrase, ledger.customers),
+      }));
+      const bestSignature = commandSignature(parsed[0].command);
+      const competing = parsed.find((alternative) =>
+        alternative.confidence >= best.confidence - 0.12
+        && commandSignature(alternative.command) !== bestSignature);
+      if (competing) {
+        announce("I heard more than one possible name or amount. Please repeat the full sentence clearly.", { speak: true, error: true });
+        return;
+      }
+      processCommand(best.phrase);
     };
     recognition.onerror = (event) => {
       setListening(false);
+      if (event.error === "aborted") {
+        announce("Stopped listening.");
+        return;
+      }
       const messages = {
-        "not-allowed": "Microphone access is blocked. Allow it in browser settings, or enter your command below.",
-        "service-not-allowed": "This browser blocks its speech service. Microphone input is hidden; use device dictation in the command box or try another browser.",
-        "network": "Speech recognition needs internet. Microphone input is hidden; your ledger stays on this device, and you can enter your command below.",
-        "no-speech": "I didn't hear anything. Try again, or enter your command below.",
-        "audio-capture": "No microphone was found. Check your device or enter your command below.",
+        "not-allowed": "Microphone access is blocked. Allow microphone access in browser settings, then try again.",
+        "service-not-allowed": "This browser blocks its speech service. Voice input is unavailable here; open the app in a supported browser.",
+        "network": "Speech recognition needs an internet connection. Your ledger stays on this device; reconnect and tap the microphone again.",
+        "no-speech": "I didn't hear speech clearly. Move the phone closer and try again.",
+        "audio-capture": "No microphone was found. Connect or enable a microphone, then try again.",
       };
-      if (event.error === "service-not-allowed" || event.error === "network") {
+      if (event.error === "service-not-allowed") {
         showSpeechFallback(messages[event.error]);
         return;
       }
@@ -205,23 +271,59 @@
       recognition.start();
     } catch (error) {
       setListening(false);
-      announce(`Couldn't start the microphone: ${error.message}. You can still enter a command below.`, { error: true });
+      announce(`Couldn't start the microphone: ${error.message}. Check microphone permissions and try again.`, { error: true });
     }
   }
 
   function showSpeechFallback(message) {
     micButton.hidden = true;
     $(".voice-stage").classList.add("voice-stage-fallback");
-    $("#mic-hint").textContent = "USE THE COMMAND BOX BELOW";
-    $("#transcript-label").textContent = "YOUR COMMAND";
-    transcript.textContent = "Enter or dictate a command below.";
+    $("#mic-hint").textContent = "VOICE INPUT UNAVAILABLE";
     announce(message, { error: true });
-    $("#command-input").focus();
+  }
+
+  function commandSignature(command) {
+    if (command.intent === "transaction") {
+      return `transaction:${command.customer.id}:${command.amount}:${command.type}`;
+    }
+    if (command.intent === "balance") return `balance:${command.customer.id}`;
+    if (command.intent === "add_customer") return `add_customer:${Ledger.normalize(command.name)}`;
+    return `${command.intent}:${command.reason || ""}`;
+  }
+
+  function finishVoiceSetup(phrase) {
+    const normalized = Ledger.normalize(phrase);
+    const groups = [
+      ["meri", "mera", "मेरी"], ["dukaan", "dukan", "दुकान"], ["hisaab", "hisab", "हिसाब"],
+      ["sahi", "theek", "thik", "सही"], ["likho", "likhna", "लिखो", "लिखना"],
+    ];
+    const matched = groups.filter((group) => group.some((word) => ` ${normalized} `.includes(` ${word} `))).length;
+    if (matched < 3) {
+      announce("I didn't catch the setup sentence. Read the line on screen once more; no audio is saved.", { speak: true, error: true });
+      return;
+    }
+    needsVoiceSetup = false;
+    $("#voice-setup").hidden = true;
+    try {
+      window.localStorage.setItem(VOICE_SETUP_KEY, "complete");
+      announce("Voice check complete. No recording or voiceprint was saved. Tap the microphone again to speak a command.");
+    } catch (error) {
+      announce(`Voice check passed, but this browser could not save the setup preference: ${error.message}. Tap the microphone again to continue.`, { error: true });
+    }
   }
 
   function updateConfirmation() {
+    if (pendingCustomerName) {
+      $("#confirmation-summary").textContent = `Add ${pendingCustomerName} to the customer book?`;
+      $("#confirmation-help").textContent = "Say “haan” to add, or “nahi” to cancel.";
+      $("#confirm-transaction").innerHTML = "<span>✓</span> Add customer";
+      confirmationPanel.hidden = false;
+      return;
+    }
     const action = pendingTransaction.type === "credit" ? "udhaar for" : "repayment from";
     $("#confirmation-summary").textContent = `${rupees(pendingTransaction.amount)} ${action} ${pendingTransaction.customer.name}.`;
+    $("#confirmation-help").textContent = "Say “haan” to save, or “nahi” to cancel.";
+    $("#confirm-transaction").innerHTML = "<span>✓</span> Save entry";
     confirmationPanel.hidden = false;
   }
 
@@ -231,6 +333,23 @@
 
   function processCommand(phrase) {
     const normalized = Ledger.normalize(phrase);
+    if (pendingCustomerName) {
+      if (containsAny(normalized, ["haan", "ha", "yes", "confirm", "save", "theek", "हाँ", "हां"])) {
+        commitTransaction();
+      } else if (containsAny(normalized, ["nahi", "nahin", "no", "cancel", "ruko", "नहीं", "नही"])) {
+        cancelTransaction();
+      } else {
+        const revised = Ledger.parseCommand(phrase, ledger.customers);
+        if (revised.intent === "add_customer") {
+          pendingCustomerName = revised.name;
+          updateConfirmation();
+          announce(`Updated: add ${pendingCustomerName}? Say “haan” to add or “nahi” to cancel.`, { speak: true });
+        } else {
+          announce(`Say “haan” to add ${pendingCustomerName}, “nahi” to cancel, or say “naya grahak” followed by the corrected name.`, { speak: true });
+        }
+      }
+      return;
+    }
     if (pendingTransaction) {
       if (containsAny(normalized, ["haan", "ha", "yes", "confirm", "save", "theek", "हाँ", "हां"])) {
         commitTransaction();
@@ -277,6 +396,23 @@
     }
 
     const command = Ledger.parseCommand(phrase, ledger.customers);
+    if (command.intent === "add_customer") {
+      if (Ledger.matchCustomer(command.name, ledger.customers)) {
+        announce(`${command.name} is already in your customer book.`, {
+          speak: true,
+          spokenMessage: hindiSelected() ? `${command.name} पहले से ग्राहक सूची में हैं।` : undefined,
+          error: true,
+        });
+        return;
+      }
+      pendingCustomerName = command.name;
+      updateConfirmation();
+      announce(`Add ${command.name} to the customer book? Say “haan” to add or “nahi” to cancel.`, {
+        speak: true,
+        spokenMessage: hindiSelected() ? `${command.name} को ग्राहक सूची में जोड़ें? जोड़ने के लिए हाँ बोलें, या रद्द करने के लिए नहीं।` : undefined,
+      });
+      return;
+    }
     if (command.intent === "transaction") {
       const balance = Ledger.customerBalances(ledger).find((customer) => customer.id === command.customer.id).balance;
       if (command.type === "repayment" && command.amount > balance) {
@@ -329,7 +465,9 @@
         ? "किस ग्राहक का नाम? अपनी ग्राहक सूची में दिया हुआ नाम बोलें।"
         : command.reason === "amount"
           ? "कितने रुपये? रकम साफ़-साफ़ बोलें।"
-          : "यह उधार है या जमा? कृपया एक बार फिर बताएं।"
+          : command.reason === "customer_name"
+            ? "नए ग्राहक का नाम बताइए।"
+            : "यह उधार है या जमा? कृपया एक बार फिर बताएं।"
       : undefined;
     announce(command.question || "I didn't quite get that. Try saying a name, amount, and “udhaar” or “jama”.", {
       speak: true,
@@ -339,6 +477,22 @@
   }
 
   function commitTransaction() {
+    if (pendingCustomerName) {
+      const name = pendingCustomerName;
+      try {
+        const customer = Ledger.addCustomer(ledger, name);
+        pendingCustomerName = null;
+        confirmationPanel.hidden = true;
+        if (!persist()) return;
+        announce(`${customer.name} added to your customer book.`, {
+          speak: true,
+          spokenMessage: hindiSelected() ? `${customer.name} को ग्राहक सूची में जोड़ दिया गया।` : undefined,
+        });
+      } catch (error) {
+        announce(error.message, { speak: true, error: true });
+      }
+      return;
+    }
     if (!pendingTransaction) return;
     try {
       Ledger.addTransaction(ledger, {
@@ -365,27 +519,12 @@
 
   function cancelTransaction() {
     pendingTransaction = null;
+    pendingCustomerName = null;
     confirmationPanel.hidden = true;
     announce("Entry cancelled. Nothing was saved.", { speak: true });
   }
 
   micButton.addEventListener("click", listen);
-  $("#command-form").addEventListener("submit", (event) => {
-    event.preventDefault();
-    const input = $("#command-input");
-    const phrase = input.value.trim();
-    if (!phrase) {
-      announce("Enter or dictate a name, amount, and transaction type.", { error: true });
-      input.focus();
-      return;
-    }
-    $("#transcript-label").textContent = "YOUR COMMAND";
-    transcript.textContent = phrase;
-    $("#confidence-label").textContent = "command";
-    voiceNotice.hidden = true;
-    processCommand(phrase);
-    input.value = "";
-  });
   $("#confirm-transaction").addEventListener("click", commitTransaction);
   $("#cancel-confirmation").addEventListener("click", cancelTransaction);
   $("#view-all").addEventListener("click", () => {
@@ -396,55 +535,25 @@
     if (!window.confirm("Restore the sample ledger? This replaces the ledger saved in this browser.")) return;
     ledger = Ledger.freshLedger();
     pendingTransaction = null;
+    pendingCustomerName = null;
     showAllEntries = false;
     confirmationPanel.hidden = true;
-    $("#command-input").value = "";
     $("#transcript-label").textContent = "WHAT I HEARD";
-    transcript.textContent = "Your speech or command will appear here.";
+    transcript.textContent = "Your speech will appear here.";
     $("#confidence-label").textContent = "";
     persist();
     announce("The sample ledger has been restored.");
   });
-  $("#add-customer").addEventListener("click", () => {
-    $("#customer-name").value = "";
-    $("#customer-dialog").showModal();
-    $("#customer-name").focus();
-  });
-  $("#close-customer-dialog").addEventListener("click", () => $("#customer-dialog").close());
-  $("#cancel-add-customer").addEventListener("click", () => $("#customer-dialog").close());
-  $("#customer-form").addEventListener("submit", (event) => {
-    event.preventDefault();
-    try {
-      const customer = Ledger.addCustomer(ledger, $("#customer-name").value);
-      if (!persist()) return;
-      $("#customer-dialog").close();
-      announce(`${customer.name} added to your customer book.`);
-    } catch (error) {
-      announce(error.message, { error: true });
-    }
-  });
   $("#show-customers").addEventListener("click", () => $("#customers-dialog").showModal());
   $("#close-customers").addEventListener("click", () => $("#customers-dialog").close());
-  $("#customer-dialog").addEventListener("click", (event) => {
-    if (event.target === $("#customer-dialog")) $("#customer-dialog").close();
-  });
   $("#customers-dialog").addEventListener("click", (event) => {
     if (event.target === $("#customers-dialog")) $("#customers-dialog").close();
   });
-  document.querySelectorAll(".example-chip").forEach((button) => {
-    button.addEventListener("click", () => {
-      $("#command-input").value = button.dataset.example;
-      $("#command-input").focus();
-      $("#transcript-label").textContent = "YOUR COMMAND";
-      transcript.textContent = button.dataset.example;
-      $("#confidence-label").textContent = "sample";
-      announce("Sample command ready. Send it to review the read-back before saving.");
-    });
-  });
 
   $("#today-label").textContent = new Intl.DateTimeFormat("en-IN", { weekday: "long", day: "numeric", month: "long" }).format(new Date()).toUpperCase();
+  $("#voice-setup").hidden = !needsVoiceSetup;
   if (!recognitionAvailable) {
-    showSpeechFallback("Microphone recognition isn't supported in this browser. You can still use the command box, or open Dukaan Saathi in Chrome or Edge for speech input.");
+    showSpeechFallback("Microphone recognition isn't supported in this browser. Open Dukaan Saathi in a supported browser to use voice input.");
   }
   render();
   if (startupError) announce(startupError, { error: true });
