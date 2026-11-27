@@ -213,6 +213,8 @@
     micButton.hidden = true;
     $(".voice-stage").classList.add("voice-stage-fallback");
     $("#mic-hint").textContent = "USE THE COMMAND BOX BELOW";
+    $("#transcript-label").textContent = "YOUR COMMAND";
+    transcript.textContent = "Enter or dictate a command below.";
     announce(message, { error: true });
     $("#command-input").focus();
   }
@@ -398,7 +400,7 @@
     confirmationPanel.hidden = true;
     $("#command-input").value = "";
     $("#transcript-label").textContent = "WHAT I HEARD";
-    transcript.textContent = "Your words will appear here as you speak.";
+    transcript.textContent = "Your speech or command will appear here.";
     $("#confidence-label").textContent = "";
     persist();
     announce("The sample ledger has been restored.");
@@ -434,6 +436,8 @@
       $("#command-input").value = button.dataset.example;
       $("#command-input").focus();
       $("#transcript-label").textContent = "YOUR COMMAND";
+      transcript.textContent = button.dataset.example;
+      $("#confidence-label").textContent = "sample";
       announce("Sample command ready. Send it to review the read-back before saving.");
     });
   });
