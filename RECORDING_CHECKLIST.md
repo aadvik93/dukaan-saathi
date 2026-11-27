@@ -1,0 +1,24 @@
+# Demo recording checklist
+
+The demo has not been recorded. Use the actual running app and keep the final video at or below 3 minutes.
+
+## Suggested 2-minute walkthrough
+
+1. **0:00–0:15 — Set the scene.** Show the app and explain: “This is a small local-first voice notebook for recording a kirana customer's udhaar or repayment.”
+2. **0:15–0:45 — Add credit by voice.** Select Hindi or Hinglish, tap the microphone, and say “Raju ko 500 udhaar likho” (or the Hindi equivalent). Show the recognized words, the read-back, and explicitly confirm. Point to the updated entry and totals.
+3. **0:45–1:10 — Ask for a balance.** Use the microphone and ask “Raju ka balance kitna hai?” Show and play the answer.
+4. **1:10–1:35 — Record a repayment.** Say “Seema ne 200 rupaye diye” (use an amount within the visible balance), review the confirmation, and save it.
+5. **1:35–1:50 — Ask today's summary.** Say “Aaj ka hisaab batao” and show the spoken summary.
+6. **1:50–2:00 — Be candid.** State that this is a prototype, records stay in that browser, browser speech recognition may use an internet service, and field accuracy still needs real shopkeeper tests.
+
+## Before recording
+
+- Test the microphone, selected language, browser speech recognition, and speech synthesis on the exact device/browser you will record from.
+- Reset the sample ledger before the take; verify the starting customer balances.
+- Show the real app and real recognition. Do not replace a failed voice interaction with a claim that voice worked; use a different supported browser/device or disclose the limitation.
+- Keep personal customer data and microphone recordings out of the video unless the people involved have explicitly consented.
+- The sample-command chips fill the command box for a no-microphone walkthrough. Identify them as shortcuts if used; they do not demonstrate speech recognition.
+
+## Small unaided field-test checklist
+
+After obtaining consent, invite a few local shopkeepers to try one credit entry, one repayment, a balance question, and a daily-summary question without coaching. Ask them to correct or cancel one entry. Observe task completion, corrections, recognition errors, and whether they trust the read-back. Do not record identifiable audio or customer details without separate consent. Report the sample size, device/browser, language, failures, and limitations; do not generalize a tiny pilot into market proof.

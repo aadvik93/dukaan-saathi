@@ -1,0 +1,250 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R] /Count 6 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 1632 >>
+stream
+0.965 0.972 0.945 rg 0 0 595 842 re f
+0.090 0.310 0.220 rg 0 835 595 7 re f
+BT /F2 8 Tf 0.090 0.310 0.220 rg 48 804 Td (DUKAAN SAATHI  /  HACKATHON PROTOTYPE) Tj ET
+BT /F2 34 Tf 0.120 0.170 0.140 rg 48 712 Td (Close the udhaar) Tj ET
+BT /F2 34 Tf 0.090 0.310 0.220 rg 48 670 Td (book by voice.) Tj ET
+BT /F1 13 Tf 0.390 0.460 0.410 rg 50 628 Td (A focused, local-first assistant for the daily kirana ledger.) Tj ET
+1.000 1.000 1.000 rg 48 443 499 143 re f
+BT /F2 8 Tf 0.820 0.610 0.250 rg 68 551 Td (SAY) Tj ET
+BT /F2 16 Tf 0.120 0.170 0.140 rg 68 525 Td (\(Raju ko 500 udhaar likho\)) Tj ET
+BT /F2 9 Tf 0.090 0.310 0.220 rg 68 496 Td (HEAR IT BACK  ->  CONFIRM  ->  SAVE LOCALLY) Tj ET
+0.820 0.610 0.250 rg 68 474 5 5 re f
+BT /F1 10 Tf 0.390 0.460 0.410 rg 82 471 Td (Then ask: \(Raju ka balance kitna hai?\)) Tj ET
+BT /F2 9 Tf 0.090 0.310 0.220 rg 48 393 Td (ONE EVERYDAY JOB, DONE CAREFULLY) Tj ET
+BT /F1 13 Tf 0.120 0.170 0.140 rg 48 365 Td (Log a credit or repayment, verify it, and get a balance) Tj ET
+BT /F1 13 Tf 0.120 0.170 0.140 rg 48 345 Td (or today's total without opening a spreadsheet or typing.) Tj ET
+0.840 0.880 0.830 rg 48 274 499 1 re f
+BT /F2 8 Tf 0.390 0.460 0.410 rg 48 247 Td (BUILT FOR) Tj ET
+BT /F2 12 Tf 0.120 0.170 0.140 rg 48 225 Td (Independent neighborhood kirana shops) Tj ET
+BT /F2 8 Tf 0.390 0.460 0.410 rg 48 189 Td (WHAT IT IS NOT) Tj ET
+BT /F1 10 Tf 0.120 0.170 0.140 rg 48 167 Td (Not a POS, payment rail, tax tool, or full business suite.) Tj ET
+BT /F2 7 Tf 0.390 0.460 0.410 rg 48 26 Td (PROTOTYPE  |  NO FIELD VALIDATION CLAIMED) Tj ET
+BT /F2 8 Tf 0.090 0.310 0.220 rg 520 26 Td (01) Tj ET
+
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 2141 >>
+stream
+1.000 1.000 1.000 rg 0 0 595 842 re f
+0.090 0.310 0.220 rg 0 835 595 7 re f
+BT /F2 8 Tf 0.090 0.310 0.220 rg 48 804 Td (DUKAAN SAATHI  /  VOICE UDHAAR CLOSEOUT) Tj ET
+BT /F2 26 Tf 0.120 0.170 0.140 rg 48 753 Td (The moment we are designing for) Tj ET
+BT /F1 10 Tf 0.390 0.460 0.410 rg 48 729 Td (A tiny interaction with real consequences: a spoken amount becomes a record.) Tj ET
+0.910 0.960 0.910 rg 48 713 499 1 re f
+BT /F2 7 Tf 0.390 0.460 0.410 rg 48 26 Td (PROTOTYPE  |  NO FIELD VALIDATION CLAIMED) Tj ET
+BT /F2 8 Tf 0.090 0.310 0.220 rg 520 26 Td (02) Tj ET
+0.910 0.960 0.910 rg 48 584 499 101 re f
+BT /F2 12 Tf 0.090 0.310 0.220 rg 63 663 Td (The problem hypothesis) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 642 Td (Independent shopkeepers often manage familiar customers and informal credit) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 627 Td (during a busy day. Writing every small tab can interrupt serving a customer;) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 612 Td (memory-only tracking can make a later balance conversation harder.) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 597 Td (These are product hypotheses to validate locally, not measured findings.) Tj ET
+0.980 0.960 0.910 rg 48 484 499 86 re f
+BT /F2 12 Tf 0.090 0.310 0.220 rg 63 548 Td (Who feels it first) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 527 Td (A shopkeeper who already keeps a customer-wise udhaar notebook and prefers) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 512 Td (Hindi or Hinglish. Customers are the indirect beneficiaries of a clearer) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 497 Td (conversation about what is owed and what has been repaid.) Tj ET
+0.910 0.960 0.910 rg 48 384 499 86 re f
+BT /F2 12 Tf 0.090 0.310 0.220 rg 63 448 Td (What must be true) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 427 Td (They must be able to complete a credit, repayment, and balance check unaided;) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 412 Td (speech recognition must work in their real shop environment; and the spoken) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 397 Td (read-back must feel useful rather than like extra work.) Tj ET
+
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 10 0 R >>
+endobj
+10 0 obj
+<< /Length 2249 >>
+stream
+1.000 1.000 1.000 rg 0 0 595 842 re f
+0.090 0.310 0.220 rg 0 835 595 7 re f
+BT /F2 8 Tf 0.090 0.310 0.220 rg 48 804 Td (DUKAAN SAATHI  /  VOICE UDHAAR CLOSEOUT) Tj ET
+BT /F2 26 Tf 0.120 0.170 0.140 rg 48 753 Td (A narrow voice loop, with a pause to verify) Tj ET
+BT /F1 10 Tf 0.390 0.460 0.410 rg 48 729 Td (Voice is the main input. A visible transcript and explicit confirmation protect the ledger.) Tj ET
+0.910 0.960 0.910 rg 48 713 499 1 re f
+BT /F2 7 Tf 0.390 0.460 0.410 rg 48 26 Td (PROTOTYPE  |  NO FIELD VALIDATION CLAIMED) Tj ET
+BT /F2 8 Tf 0.090 0.310 0.220 rg 520 26 Td (03) Tj ET
+0.910 0.960 0.910 rg 48 632 499 56 re f
+BT /F2 10 Tf 0.090 0.310 0.220 rg 63 664 Td (01  SPEAK) Tj ET
+BT /F1 10 Tf 0.120 0.170 0.140 rg 185 664 Td (\(Name + amount + type: Raju ko 500 udhaar likho.\)) Tj ET
+0.980 0.960 0.910 rg 48 562 499 56 re f
+BT /F2 10 Tf 0.090 0.310 0.220 rg 63 594 Td (02  CHECK) Tj ET
+BT /F1 10 Tf 0.120 0.170 0.140 rg 185 594 Td (Show the transcript. Ask if name, amount, or type is missing.) Tj ET
+0.910 0.960 0.910 rg 48 492 499 56 re f
+BT /F2 10 Tf 0.090 0.310 0.220 rg 63 524 Td (03  READ BACK) Tj ET
+BT /F1 10 Tf 0.120 0.170 0.140 rg 185 524 Td (Say the proposed entry and wait. Do not write yet.) Tj ET
+0.980 0.960 0.910 rg 48 422 499 56 re f
+BT /F2 10 Tf 0.090 0.310 0.220 rg 63 454 Td (04  CONFIRM) Tj ET
+BT /F1 10 Tf 0.120 0.170 0.140 rg 185 454 Td (Save only after haan or the visible save button.) Tj ET
+0.910 0.960 0.910 rg 48 352 499 56 re f
+BT /F2 10 Tf 0.090 0.310 0.220 rg 63 384 Td (05  ASK) Tj ET
+BT /F1 10 Tf 0.120 0.170 0.140 rg 185 384 Td (Answer customer balance and today's credit/repayment totals.) Tj ET
+0.980 0.960 0.910 rg 48 213 499 101 re f
+BT /F2 12 Tf 0.090 0.310 0.220 rg 63 292 Td (Guardrails in this prototype) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 271 Td (Missing or mixed details trigger a clarification, not a guessed write.) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 256 Td (Repayments above the recorded balance are blocked for review.) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 241 Td (Spoken confirmation is required; cancel leaves the ledger unchanged.) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 226 Td (No inventory, tax, payments, cloud accounts, or multi-device sync.) Tj ET
+
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 12 0 R >>
+endobj
+12 0 obj
+<< /Length 2361 >>
+stream
+1.000 1.000 1.000 rg 0 0 595 842 re f
+0.090 0.310 0.220 rg 0 835 595 7 re f
+BT /F2 8 Tf 0.090 0.310 0.220 rg 48 804 Td (DUKAAN SAATHI  /  VOICE UDHAAR CLOSEOUT) Tj ET
+BT /F2 26 Tf 0.120 0.170 0.140 rg 48 753 Td (A reachable market before a made-up TAM) Tj ET
+BT /F1 10 Tf 0.390 0.460 0.410 rg 48 729 Td (Start with a small, specific customer group; earn the right to expand.) Tj ET
+0.910 0.960 0.910 rg 48 713 499 1 re f
+BT /F2 7 Tf 0.390 0.460 0.410 rg 48 26 Td (PROTOTYPE  |  NO FIELD VALIDATION CLAIMED) Tj ET
+BT /F2 8 Tf 0.090 0.310 0.220 rg 520 26 Td (04) Tj ET
+0.910 0.960 0.910 rg 48 599 499 86 re f
+BT /F2 12 Tf 0.090 0.310 0.220 rg 63 663 Td (Who we serve) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 642 Td (India-based independent neighborhood kirana shops that already track) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 627 Td (customer credit informally and have a smartphone available at the counter.) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 612 Td (The first user is the owner/shopkeeper, not a finance department or chain.) Tj ET
+0.980 0.960 0.910 rg 48 469 499 116 re f
+BT /F2 12 Tf 0.090 0.310 0.220 rg 63 563 Td (Addressable first market) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 542 Td (Beachhead: 3-5 reachable shops in one local area for an opt-in pilot.) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 527 Td (Next segment: similar independent shops only after unaided repeat use and) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 512 Td (reliable speech performance are demonstrated.) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 497 Td (No national TAM/SAM figure is claimed: shop count, reach, willingness to pay,) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 482 Td (and retention have not been researched for this product.) Tj ET
+0.910 0.960 0.910 rg 48 354 499 101 re f
+BT /F2 12 Tf 0.090 0.310 0.220 rg 63 433 Td (Public context, not proof of demand) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 412 Td (World Bank Global Findex tracks formal and informal financial access and) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 397 Td (use across economies. It provides context for financial behavior; it does) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 382 Td (not measure kirana udhaar workflows or validate this app.) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 367 Td (Source: worldbank.org/en/publication/globalfindex/report) Tj ET
+
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 14 0 R >>
+endobj
+14 0 obj
+<< /Length 2688 >>
+stream
+1.000 1.000 1.000 rg 0 0 595 842 re f
+0.090 0.310 0.220 rg 0 835 595 7 re f
+BT /F2 8 Tf 0.090 0.310 0.220 rg 48 804 Td (DUKAAN SAATHI  /  VOICE UDHAAR CLOSEOUT) Tj ET
+BT /F2 26 Tf 0.120 0.170 0.140 rg 48 753 Td (What it depends on - and what could fail) Tj ET
+BT /F1 10 Tf 0.390 0.460 0.410 rg 48 729 Td (Prototype costs are intentionally small; the hard costs are trust, access, and reliability.) Tj ET
+0.910 0.960 0.910 rg 48 713 499 1 re f
+BT /F2 7 Tf 0.390 0.460 0.410 rg 48 26 Td (PROTOTYPE  |  NO FIELD VALIDATION CLAIMED) Tj ET
+BT /F2 8 Tf 0.090 0.310 0.220 rg 520 26 Td (05) Tj ET
+0.910 0.960 0.910 rg 48 569 499 116 re f
+BT /F2 12 Tf 0.090 0.310 0.220 rg 63 663 Td (Core components and availability) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 642 Td (Browser: current Chrome/Edge-style Web Speech API implementation; support) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 627 Td (varies by browser, OS, locale, and device. No speech API key or app server) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 612 Td (account is required. Source: MDN SpeechRecognition documentation.) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 597 Td (App: dependency-free HTML/CSS/JavaScript and Node static server.) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 582 Td (Ledger: browser localStorage on this device. Docker Compose is optional.) Tj ET
+0.980 0.960 0.910 rg 48 424 499 131 re f
+BT /F2 12 Tf 0.090 0.310 0.220 rg 63 533 Td (Cost and privacy risks) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 512 Td (Direct prototype API cost: none. Hosting, connectivity, a suitable device,) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 497 Td (and any future managed speech service can cost money; provider pricing and) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 482 Td (terms must be checked before production.) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 467 Td (Some browser recognition services send audio to a provider for processing.) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 452 Td (This app itself stores ledger data locally, but does not control that audio) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 437 Td (path. Network interruptions can stop recognition; the ledger remains local.) Tj ET
+0.910 0.960 0.910 rg 48 324 499 86 re f
+BT /F2 12 Tf 0.090 0.310 0.220 rg 63 388 Td (Trust and accounting risks) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 367 Td (Misheard names/amounts, shared-device access, cleared site data, and a small) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 352 Td (Hindi/Hinglish vocabulary are material limits. Confirm every entry; keep a) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 337 Td (paper backup during pilot. Do not use the demo as the sole legal record.) Tj ET
+
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 16 0 R >>
+endobj
+16 0 obj
+<< /Length 2843 >>
+stream
+1.000 1.000 1.000 rg 0 0 595 842 re f
+0.090 0.310 0.220 rg 0 835 595 7 re f
+BT /F2 8 Tf 0.090 0.310 0.220 rg 48 804 Td (DUKAAN SAATHI  /  VOICE UDHAAR CLOSEOUT) Tj ET
+BT /F2 26 Tf 0.120 0.170 0.140 rg 48 753 Td (Launch with evidence, not a big promise) Tj ET
+BT /F1 10 Tf 0.390 0.460 0.410 rg 48 729 Td (A practical next month is a learning plan - not a claim that the prototype is production-ready.) Tj ET
+0.910 0.960 0.910 rg 48 713 499 1 re f
+BT /F2 7 Tf 0.390 0.460 0.410 rg 48 26 Td (PROTOTYPE  |  NO FIELD VALIDATION CLAIMED) Tj ET
+BT /F2 8 Tf 0.090 0.310 0.220 rg 520 26 Td (06) Tj ET
+0.910 0.960 0.910 rg 48 584 499 101 re f
+BT /F2 12 Tf 0.090 0.310 0.220 rg 63 663 Td (1. Validate the counter workflow) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 642 Td (Invite a few nearby shopkeepers; obtain consent; ask them to try an entry,) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 627 Td (repayment, balance, summary, correction, and cancellation without coaching.) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 612 Td (Record task completion, time, correction rate, language/device, and failures.) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 597 Td (Do not collect identifiable audio or customer data without explicit consent.) Tj ET
+0.980 0.960 0.910 rg 48 484 499 86 re f
+BT /F2 12 Tf 0.090 0.310 0.220 rg 63 548 Td (2. Improve only what blocks repeat use) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 527 Td (Review recognition errors with participants. Expand names/phrases only after) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 512 Td (testing; consider on-device speech or a privacy-reviewed provider only if) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 497 Td (it materially improves reliability and its costs/terms are acceptable.) Tj ET
+0.910 0.960 0.910 rg 48 384 499 86 re f
+BT /F2 12 Tf 0.090 0.310 0.220 rg 63 448 Td (3. Explore a sustainable rollout) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 427 Td (Try a short, opt-in assisted pilot through local shopkeeper networks. Track) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 412 Td (weekly repeat usage and correction burden. Test willingness to pay before) Tj ET
+BT /F1 9.5 Tf 0.120 0.170 0.140 rg 63 397 Td (choosing a model; do not assume ads, lending, or transaction fees.) Tj ET
+BT /F2 8 Tf 0.090 0.310 0.220 rg 48 143 Td (SOURCES & LIMITATIONS) Tj ET
+BT /F1 7.5 Tf 0.390 0.460 0.410 rg 48 125 Td (MDN, SpeechRecognition: developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition) Tj ET
+BT /F1 7.5 Tf 0.390 0.460 0.410 rg 48 110 Td (World Bank, Global Findex 2025 report: worldbank.org/en/publication/globalfindex/report) Tj ET
+BT /F2 8 Tf 0.120 0.170 0.140 rg 48 92 Td (No user interviews, field tests, customer counts, market sizing, or production reliability) Tj ET
+BT /F2 8 Tf 0.120 0.170 0.140 rg 48 78 Td (are claimed in this deck. Validate before expanding.) Tj ET
+
+endstream
+endobj
+xref
+0 17
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000154 00000 n 
+0000000224 00000 n 
+0000000299 00000 n 
+0000000435 00000 n 
+0000002119 00000 n 
+0000002255 00000 n 
+0000004448 00000 n 
+0000004585 00000 n 
+0000006887 00000 n 
+0000007025 00000 n 
+0000009439 00000 n 
+0000009577 00000 n 
+0000012318 00000 n 
+0000012456 00000 n 
+trailer
+<< /Size 17 /Root 1 0 R >>
+startxref
+15352
+%%EOF
